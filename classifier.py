@@ -40,11 +40,11 @@ print(data.shape)
 print(data.describe())
 print(data.groupby('storypoint').size())
 
-data = data[(data.storypoint == 5) | (data.storypoint == 3)|(data.storypoint == 8)]
+# data = data[(data.storypoint == 5) | (data.storypoint == 3)|(data.storypoint == 8)]
 
-# data.loc[data.storypoint <= 2, 'storypoint'] = 0 #small
-# data.loc[(data.storypoint > 2) & (data.storypoint <= 5), 'storypoint'] = 1 #medium
-# data.loc[data.storypoint > 5, 'storypoint'] = 2 #big
+data.loc[data.storypoint <= 2, 'storypoint'] = 0 #small
+data.loc[(data.storypoint > 2) & (data.storypoint <= 5), 'storypoint'] = 1 #medium
+data.loc[data.storypoint > 5, 'storypoint'] = 2 #big
 
 print(data.groupby('storypoint').size())
 
@@ -59,9 +59,13 @@ print(data.shape)
 plt.rcParams['figure.figsize'] = (18, 10)
 sns.boxenplot(x = data['storypoint'], y = data['lenTitDescription'])
 plt.title('Relation between Story Points and Title Length', fontsize = 20)
-plt.savefig('classes representation_before new segmentation')
+plt.savefig('classes representation with sampling after new segmentation')
 # plt.show()
-
+# plt.hist(data.storypoint, bins=20, alpha=0.6, color='y')
+# plt.title("#Items per Point")
+# plt.xlabel("Points")
+# plt.ylabel("Count")
+# plt.savefig('items per point')
 # wordcloud = WordCloud(background_color = 'gray', width = 1000, height = 1000, max_words = 50).generate(str(data['titDescription']))
 # plt.rcParams['figure.figsize'] = (10, 10)
 # plt.title('Most Common words in the dataset', fontsize = 20)
@@ -131,7 +135,6 @@ sc = StandardScaler()
 
 x_train = sc.fit_transform(x_train)
 x_test = sc.transform(x_test)
-y_train.value_counts()
 print('Y_train_value_counts',y_train.value_counts())
 
 
@@ -158,7 +161,7 @@ names = []
 scoring = 'accuracy'
 
 for name, model in models:
-    kfold = model_selection.KFold(n_splits=20,random_state=seed,shuffle=True)
+    kfold = model_selection.KFold(n_splits=10,random_state=seed,shuffle=True)
     cv_results = model_selection.cross_val_score(model, x, y, cv=kfold, scoring=scoring)
     results.append(cv_results)
     names.append(name)
@@ -179,7 +182,7 @@ fig.suptitle('Algorithm Comparison')
 ax = fig.add_subplot(111)
 plt.boxplot(results)
 ax.set_xticklabels(names)
-plt.savefig('Algorithm Comparison before new segmentation')# boxplot algorithm comparison
+plt.savefig('Algorithm Comparison with sampling before new segmentation')# boxplot algorithm comparison
 # plt.show()
 
 
