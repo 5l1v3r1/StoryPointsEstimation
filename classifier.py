@@ -1,4 +1,4 @@
-import os
+import os,glob
 import re
 import pandas as pd
 import numpy as np
@@ -9,63 +9,85 @@ from nltk.stem.porter import PorterStemmer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn import model_selection
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import confusion_matrix, classification_report,accuracy_score
+from sklearn.metrics import confusion_matrix, classification_report,accuracy_score,roc_curve, auc, roc_auc_score
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.naive_bayes import GaussianNB
-from sklearn.svm import SVC
-from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier,BaggingClassifier
+from sklearn.svm import SVC,LinearSVC
+from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.gaussian_process.kernels import RBF
 from sklearn.neural_network import MLPClassifier
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
-from sklearn.preprocessing import LabelEncoder,StandardScaler
+from sklearn.preprocessing import StandardScaler,MinMaxScaler
+from sklearn.base import BaseEstimator, ClassifierMixin
+from xgboost import XGBClassifier
 from wordcloud import WordCloud
+from imblearn.over_sampling import SMOTE
+import warnings
+warnings.filterwarnings('ignore')
+warnings.simplefilter('ignore')
 
-# print(os.listdir('../input/storypointsfull'))
+
 filename = "appceleratorstudio.csv"
 data = pd.read_csv(filename)
-print(data.shape)
+print(data.isnull().sum())
+data = data.dropna(how='any')
 data = data.drop(['issuekey'], axis = 1)
-# print(data.describe())
-# data = data[(data.storypoint == 1) | (data.storypoint == 2) | (data.storypoint == 13)]
+
+print(data.shape)
+print(data.describe())
+print(data.groupby('storypoint').size())
+
+data = data[(data.storypoint == 5) | (data.storypoint == 3)|(data.storypoint == 8)]
+
+# data.loc[data.storypoint <= 2, 'storypoint'] = 0 #small
+# data.loc[(data.storypoint > 2) & (data.storypoint <= 5), 'storypoint'] = 1 #medium
+# data.loc[data.storypoint > 5, 'storypoint'] = 2 #big
+
+print(data.groupby('storypoint').size())
 
 data['titDescription'] = data[['title', 'description']].apply(lambda x: ' '.join(x.map(str)), axis=1)
 data['lenTitDescription'] = data['titDescription'].str.len()
 
 data = data.drop(['title'], axis = 1)
 data = data.drop(['description'], axis = 1)
-# print(data.columns)
-# print(data.head(10))
-plt.rcParams['figure.figsize'] = (10, 7)
+print(data.shape)
+
+
+plt.rcParams['figure.figsize'] = (18, 10)
 sns.boxenplot(x = data['storypoint'], y = data['lenTitDescription'])
 plt.title('Relation between Story Points and Title Length', fontsize = 20)
+plt.savefig('classes representation_before new segmentation')
 # plt.show()
-wordcloud = WordCloud(background_color = 'gray', width = 1000, height = 1000, max_words = 50).generate(str(data['titDescription']))
 
-plt.rcParams['figure.figsize'] = (10, 10)
-plt.title('Most Common words in the dataset', fontsize = 20)
-plt.axis('off')
-plt.imshow(wordcloud)
+# wordcloud = WordCloud(background_color = 'gray', width = 1000, height = 1000, max_words = 50).generate(str(data['titDescription']))
+# plt.rcParams['figure.figsize'] = (10, 10)
+# plt.title('Most Common words in the dataset', fontsize = 20)
+# plt.axis('off')
+# plt.imshow(wordcloud)
+# plt.savefig('common words')
 # plt.show()
 
 cv = CountVectorizer()
 words = cv.fit_transform(data['titDescription'].values.astype('U'))
-
 sum_words = words.sum(axis=0)
-
-words_freq = [(word, sum_words[0, i]) for word, i in cv.vocabulary_.items()]
-words_freq = sorted(words_freq, key = lambda x: x[1], reverse = True)
-
-frequency = pd.DataFrame(words_freq, columns=['word', 'freq'])
-
-frequency.head(30).plot(x='word', y='freq', kind='bar', figsize=(15, 7), color = 'orange')
-plt.title("Most Frequently Occuring Words - Top 30")
+#
+# words_freq = [(word, sum_words[0, i]) for word, i in cv.vocabulary_.items()]
+# words_freq = sorted(words_freq, key = lambda x: x[1], reverse = True)
+#
+# frequency = pd.DataFrame(words_freq, columns=['word', 'freq'])
+#
+# frequency.head(30).plot(x='word', y='freq', kind='bar', figsize=(15, 7), color = 'orange')
+# plt.title("Most Frequently Occuring Words - Top 30")
+# plt.savefig('top common words')
 # plt.show()
-corpusTitDescription = []
 
-for i in range(0, 2919):
+
+corpusTitDescription = []
+n=data.shape[0]
+for i in range(0, n):
 
   review = re.sub('[^a-zA-Z]', ' ', data['titDescription'].values.astype('U')[i])
 
@@ -80,79 +102,105 @@ for i in range(0, 2919):
 
   corpusTitDescription.append(review)
 
-# print(corpusTitDescription)
-print(data.columns)
-# print(data.head(10))
 
 # creating bag of words
-
-cv = CountVectorizer()
-
 x = cv.fit_transform(corpusTitDescription).toarray()
 y = data.iloc[:, 0]
-print(x)
-print(y)
-print(x.shape)
-print(y.shape)
+
+print('x:',x)
+print('y:',y)
+print('x_shape',x.shape)
+print('y_shape',y.shape)
+
+
 
 #Title
 # splitting the training data into train and valid sets
+seed=50
 
 
-x_train, x_test, y_train, y_test = model_selection.train_test_split(x, y, test_size = 0.20,)
+x_train, x_test, y_train, y_test = model_selection.train_test_split(x, y, test_size = 0.20 ,random_state=seed,shuffle=True)
 
-print(x_train.shape)
-print(x_test.shape)
-print(y_train.shape)
-print(y_test.shape)
+print('x_train_shape',x_train.shape)
+print('x_test_shape',x_test.shape)
+print('y_train_shape',y_train.shape)
+print('x_test_shape',y_test.shape)
 
 # standardization
 sc = StandardScaler()
 
 x_train = sc.fit_transform(x_train)
 x_test = sc.transform(x_test)
+y_train.value_counts()
+print('Y_train_value_counts',y_train.value_counts())
 
-# models = []
-# models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr',max_iter=4000,dual=False)))
-# # models.append(('LDA', LinearDiscriminantAnalysis()))
-# models.append(('KNN', KNeighborsClassifier(n_neighbors=8,max_iter=4000)))
-# models.append(('CART', DecisionTreeClassifier(max_depth=5,)))
-# models.append(('NB', GaussianNB()))
-# models.append(('SVM', SVC(kernel="linear", C=0.025,max_iter=4000,)))
-# models.append(('SVM', SVC()))
-# models.append(('CNN', MLPClassifier(max_iter=4000)))
-# models.append(('AdaBoost', AdaBoostClassifier()))
-# # models.append(('Bagging', BaggingClassifier(base_estimator=SVC(),n_estimators=10, random_state=0)))
-# # models.append(('QDA', QuadraticDiscriminantAnalysis()))
-# models.append(('RF', RandomForestClassifier()))
-# # evaluate each model in turn
-# results = []
-# names = []
-# scoring = 'accuracy'
-# for name, model in models:
-#     kfold = model_selection.KFold(n_splits=10)
-#     cv_results = model_selection.cross_val_score(model, x, y, cv=kfold, scoring=scoring)
-#     results.append(cv_results)
-#     names.append(name)
-#     msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
-#     print(msg)
+
+smt = SMOTE()
+x_train, y_train = smt.fit_sample(x_train, y_train)
+print('Y_train_classes_counts',np.bincount(y_train))
+models = []
+models.append(('SVC', SVC(kernel='linear', class_weight='balanced', probability=True)))
+models.append(('SVCLp', LinearSVC(C=0.025,penalty='l1', loss='squared_hinge', dual=False,random_state=seed,)))
+models.append(('SVCL', LinearSVC(C=0.025,random_state=seed,)))
+models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr',)))
+models.append(('KNN', KNeighborsClassifier()))
+models.append(('CART', DecisionTreeClassifier(max_depth=5)))
+models.append(('NB', GaussianNB()))
+models.append(('xGB', XGBClassifier(n_estimators=100, random_state=seed)))
+models.append(('CNN', MLPClassifier(alpha=1, )))
+models.append(('AdaBoost', AdaBoostClassifier(n_estimators=100)))
+models.append(('RF', RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1)))
+
+
+# evaluate each model in turn
+results = []
+names = []
+scoring = 'accuracy'
+
+for name, model in models:
+    kfold = model_selection.KFold(n_splits=20,random_state=seed,shuffle=True)
+    cv_results = model_selection.cross_val_score(model, x, y, cv=kfold, scoring=scoring)
+    results.append(cv_results)
+    names.append(name)
+    msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+
+    model.fit(x_train, y_train)
+    y_pred = model.predict(x_test)
+    cm=confusion_matrix(y_test,y_pred)
+    cr = classification_report(y_test, y_pred)
+
+    print(msg)
+    print(cm)
+    print(cr)
 #
-# # boxplot algorithm comparison
-# fig = plt.figure()
-# fig.suptitle('Algorithm Comparison')
-# ax = fig.add_subplot(111)
-# plt.boxplot(results)
-# ax.set_xticklabels(names)
-# plt.savefig('Algorithm Comparison')
+# boxplot algorithm comparison
+fig = plt.figure()
+fig.suptitle('Algorithm Comparison')
+ax = fig.add_subplot(111)
+plt.boxplot(results)
+ax.set_xticklabels(names)
+plt.savefig('Algorithm Comparison before new segmentation')# boxplot algorithm comparison
 # plt.show()
 
-model = RandomForestClassifier()
-model.fit(x_train, y_train)
-y_pred = model.predict(x_test)
 
-print("Training Accuracy :", model.score(x_train, y_train))
-print("Testing Accuracy :", model.score(x_test, y_test))
+
+# model = LinearSVC(kernel='linear', class_weight='balanced', C=10, random_state=0)
+# model = AdaBoostClassifier()
+# model = xGBClassifier()
+# model = LinearSVC(C=5,penalty='l1', loss='squared_hinge', dual=False,=4000)
+# # model = model_selection.GridSearchCV(svm, parameters, cv=10,scoring='accuracy')
+# model.fit(x_train, y_train)
+# # print('best parameters',model.best_params_)
+
+# y_pred = model.predict(x_test)
+# print("Training Accuracy :", model.score(x_train, y_train))
+# print("Testing Accuracy :", model.score(x_test, y_test))
 
 # classification report
-cr = classification_report(y_test, y_pred)
-print(cr)
+# cr = classification_report(y_test, y_pred,)
+# cm=confusion_matrix(y_test,y_pred)
+# accuracy = accuracy_score(y_test, y_pred)
+# print("Accuracy: %.2f%%" % (accuracy * 100.0))
+# print('Testing accurecy: ',accuracy)
+# print(cm)
+# print(cr)
