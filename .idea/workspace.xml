@@ -25,14 +25,34 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee2e8f0b-02c9-470e-a197-57c19e0ab147" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Algorithm Comparison with sampling before new segmentation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classes representation with sampling after new segmentation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classes representation with sampling before new segmentation.png" afterDir="false" />
+    <list default="true" id="ee2e8f0b-02c9-470e-a197-57c19e0ab147" name="Default Changelist" comment="final result">
+      <change afterPath="$PROJECT_DIR$/.ipynb_checkpoints/StoryPoints-contextdescription-checkpoint.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoryPoints-Spam-title-description-class_wighted.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoryPoints-Spam-title-description-class_wighted.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoryPoints-Spam-title-description-smote.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoryPoints-Spam-title-description-smote.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/appcelerator2_pickle.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes representation_after new segmentation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes representation_before new segmentation.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Algorithm Comparison with sampling before new segmentation.png" beforeDir="false" afterPath="$PROJECT_DIR$/Algorithm Comparison with sampling before new segmentation.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoryPoints-Spam-title-description.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/StoryPoints-Spam-title-description-checkpoint.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aptanastudio.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes representation with sampling after new segmentation.png" beforeDir="false" afterPath="$PROJECT_DIR$/classes representation with sampling after new segmentation.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/classifier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common words.png" beforeDir="false" afterPath="$PROJECT_DIR$/common words.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/convert to csv.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/bamboo.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/clover.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/datamanagement.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/duracloud.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/jirasoftware.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/moodle.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/mulestudio.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/talenddataquality.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/talendesb.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/usergrid.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/new.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/top common words.png" beforeDir="false" afterPath="$PROJECT_DIR$/top common words.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +67,12 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1aPOjzbcb16qNOyqhfdbkMxFBEZ" />
@@ -61,10 +87,52 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../speedictor" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Eclat" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
-  <component name="RunManager" selected="Python.classifier">
+  <component name="RunManager" selected="Python.StoryPoints-Spam-title-description-smote">
+    <configuration name="StoryPoints-Spam-title-description-class_wighted" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="StoryPointsEstimation" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/StoryPoints-Spam-title-description-class_wighted.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="StoryPoints-Spam-title-description-smote" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="StoryPointsEstimation" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/StoryPoints-Spam-title-description-smote.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="classifier" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="StoryPointsEstimation" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -86,7 +154,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="convert to csv" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="example" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="StoryPointsEstimation" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -98,7 +166,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/convert to csv.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/example.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -128,55 +196,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="new" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="StoryPointsEstimation" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/new.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="StoryPointsEstimation" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.StoryPoints-Spam-title-description-smote" />
+        <item itemvalue="Python.StoryPoints-Spam-title-description-class_wighted" />
         <item itemvalue="Python.classifier" />
+        <item itemvalue="Python.example" />
         <item itemvalue="Python.fuzzy_KNN" />
-        <item itemvalue="Python.convert to csv" />
-        <item itemvalue="Python.new" />
-        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -191,6 +217,14 @@
       <option name="presentableId" value="Default" />
       <updated>1587133064489</updated>
     </task>
+    <task id="LOCAL-00001" summary="final result">
+      <created>1587814547838</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1587814547838</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -219,6 +253,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="final result" />
+    <option name="LAST_COMMIT_MESSAGE" value="final result" />
   </component>
   <component name="WindowStateProjectService">
     <state x="588" y="215" width="800" height="684" key="#Illuminated_Cloud" timestamp="1586865696346">
@@ -245,47 +281,55 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="172" y="127" width="1648" height="853" key="DiffContextDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1587813817653" />
-    <state x="854" y="415" width="424" height="491" key="FileChooserDialogImpl" timestamp="1587692183269">
+    <state x="854" y="415" width="424" height="491" key="FileChooserDialogImpl" timestamp="1588982307776">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="771" y="314" width="424" height="491" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1587222085965" />
-    <state x="854" y="415" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1587692183269" />
-    <state width="1825" height="222" key="GridCell.Tab.0.bottom" timestamp="1587813827321">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state x="854" y="415" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1588982307776" />
+    <state width="1827" height="396" key="GridCell.Tab.0.bottom" timestamp="1590934458481">
+      <screen x="70" y="27" width="1850" height="1053" />
     </state>
     <state width="1830" height="613" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1587688957742" />
-    <state width="1825" height="222" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1587813827321" />
-    <state width="1825" height="222" key="GridCell.Tab.0.center" timestamp="1587813827321">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state width="1827" height="396" key="GridCell.Tab.0.bottom/70.27.1850.1053@70.27.1850.1053" timestamp="1590934458481" />
+    <state width="1825" height="396" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1588611402726" />
+    <state width="1827" height="396" key="GridCell.Tab.0.center" timestamp="1590934458481">
+      <screen x="70" y="27" width="1850" height="1053" />
     </state>
     <state width="1830" height="613" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1587688957741" />
-    <state width="1825" height="222" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1587813827321" />
-    <state width="1825" height="222" key="GridCell.Tab.0.left" timestamp="1587813827321">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state width="1827" height="396" key="GridCell.Tab.0.center/70.27.1850.1053@70.27.1850.1053" timestamp="1590934458481" />
+    <state width="1825" height="396" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1588611402725" />
+    <state width="1827" height="396" key="GridCell.Tab.0.left" timestamp="1590934458480">
+      <screen x="70" y="27" width="1850" height="1053" />
     </state>
     <state width="1830" height="613" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1587688957741" />
-    <state width="1825" height="222" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1587813827321" />
-    <state width="1825" height="222" key="GridCell.Tab.0.right" timestamp="1587813827321">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state width="1827" height="396" key="GridCell.Tab.0.left/70.27.1850.1053@70.27.1850.1053" timestamp="1590934458480" />
+    <state width="1825" height="396" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1588611402725" />
+    <state width="1827" height="396" key="GridCell.Tab.0.right" timestamp="1590934458481">
+      <screen x="70" y="27" width="1850" height="1053" />
     </state>
     <state width="1830" height="613" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1587688957742" />
-    <state width="1825" height="222" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1587813827321" />
-    <state width="1830" height="340" key="GridCell.Tab.1.bottom" timestamp="1587583075444">
-      <screen x="67" y="27" width="1853" height="1053" />
+    <state width="1827" height="396" key="GridCell.Tab.0.right/70.27.1850.1053@70.27.1850.1053" timestamp="1590934458481" />
+    <state width="1825" height="396" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1588611402725" />
+    <state width="1825" height="340" key="GridCell.Tab.1.bottom" timestamp="1588550784031">
+      <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1830" height="340" key="GridCell.Tab.1.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1587583075444" />
-    <state width="1830" height="340" key="GridCell.Tab.1.center" timestamp="1587583075442">
-      <screen x="67" y="27" width="1853" height="1053" />
+    <state width="1825" height="340" key="GridCell.Tab.1.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1588550784031" />
+    <state width="1825" height="340" key="GridCell.Tab.1.center" timestamp="1588550784031">
+      <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1830" height="340" key="GridCell.Tab.1.center/67.27.1853.1053@67.27.1853.1053" timestamp="1587583075442" />
-    <state width="1830" height="340" key="GridCell.Tab.1.left" timestamp="1587583075441">
-      <screen x="67" y="27" width="1853" height="1053" />
+    <state width="1825" height="340" key="GridCell.Tab.1.center/72.27.1848.1053@72.27.1848.1053" timestamp="1588550784031" />
+    <state width="1825" height="340" key="GridCell.Tab.1.left" timestamp="1588550784031">
+      <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1830" height="340" key="GridCell.Tab.1.left/67.27.1853.1053@67.27.1853.1053" timestamp="1587583075441" />
-    <state width="1830" height="340" key="GridCell.Tab.1.right" timestamp="1587583075443">
-      <screen x="67" y="27" width="1853" height="1053" />
+    <state width="1825" height="340" key="GridCell.Tab.1.left/72.27.1848.1053@72.27.1848.1053" timestamp="1588550784031" />
+    <state width="1825" height="340" key="GridCell.Tab.1.right" timestamp="1588550784031">
+      <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1830" height="340" key="GridCell.Tab.1.right/67.27.1853.1053@67.27.1853.1053" timestamp="1587583075443" />
+    <state width="1825" height="340" key="GridCell.Tab.1.right/72.27.1848.1053@72.27.1848.1053" timestamp="1588550784031" />
     <state x="482" y="188" width="1022" height="737" key="SettingsEditor" timestamp="1587175358382">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -294,9 +338,9 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="839" y="469" width="303" height="176" key="VCS.ChangelistChooser/72.27.1848.1053@72.27.1848.1053" timestamp="1587695767046" />
-    <state x="781" y="228" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1587694721013">
+    <state x="781" y="228" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1587814587551">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="781" y="228" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1587694721013" />
+    <state x="781" y="228" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1587814587551" />
   </component>
 </project>

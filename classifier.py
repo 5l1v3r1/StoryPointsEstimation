@@ -6,10 +6,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn import model_selection
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix, classification_report,accuracy_score,roc_curve, auc, roc_auc_score
+from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
@@ -25,14 +26,15 @@ from sklearn.base import BaseEstimator, ClassifierMixin
 from xgboost import XGBClassifier
 from wordcloud import WordCloud
 from imblearn.over_sampling import SMOTE
+import pickle
 import warnings
 warnings.filterwarnings('ignore')
 warnings.simplefilter('ignore')
 
-
-filename = "appceleratorstudio.csv"
+filename = "appcelerator.csv"
 data = pd.read_csv(filename)
 print(data.isnull().sum())
+# print(data.describe())
 data = data.dropna(how='any')
 data = data.drop(['issuekey'], axis = 1)
 
@@ -75,6 +77,7 @@ plt.savefig('classes representation with sampling after new segmentation')
 # plt.show()
 
 cv = CountVectorizer()
+tfidf = TfidfVectorizer()
 words = cv.fit_transform(data['titDescription'].values.astype('U'))
 sum_words = words.sum(axis=0)
 #
@@ -94,7 +97,6 @@ n=data.shape[0]
 for i in range(0, n):
 
   review = re.sub('[^a-zA-Z]', ' ', data['titDescription'].values.astype('U')[i])
-
   review = review.lower()
   review = review.split()
   ps = PorterStemmer()
@@ -133,26 +135,35 @@ print('x_test_shape',y_test.shape)
 # standardization
 sc = StandardScaler()
 
-x_train = sc.fit_transform(x_train)
-x_test = sc.transform(x_test)
-print('Y_train_value_counts',y_train.value_counts())
+# x_train = sc.fit_transform(x_train)
+# x_test = sc.transform(x_test)
+print('Y_train_value_counts :','\n',y_train.value_counts())
 
 
-smt = SMOTE()
-x_train, y_train = smt.fit_sample(x_train, y_train)
-print('Y_train_classes_counts',np.bincount(y_train))
+# smt = SMOTE()
+# x_train, y_train = smt.fit_sample(x_train, y_train)
+# print('Y_train_classes_counts',np.bincount(y_train))
+# param_grid = {'penalty':['l1','l2'],'C':[0.01,0.025,0.1,1,5,10,100],'loss':['squared_hinge','hinge']}
+# model = model_selection.GridSearchCV(LinearSVC(), param_grid, cv=10,scoring='accuracy')
+# model.fit(x_train, y_train)
+# print('best parameters',model.best_params_)
+
 models = []
-models.append(('SVC', SVC(kernel='linear', class_weight='balanced', probability=True)))
+models.append(('SVC', SVC(C=0.025,kernel='linear', class_weight='balanced', probability=True)))
+# models.append(('SVCLw', LinearSVC(C=0.025,class_weight='balanced')))
 models.append(('SVCLp', LinearSVC(C=0.025,penalty='l1', loss='squared_hinge', dual=False,random_state=seed,)))
-models.append(('SVCL', LinearSVC(C=0.025,random_state=seed,)))
-models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr',)))
-models.append(('KNN', KNeighborsClassifier()))
-models.append(('CART', DecisionTreeClassifier(max_depth=5)))
-models.append(('NB', GaussianNB()))
-models.append(('xGB', XGBClassifier(n_estimators=100, random_state=seed)))
-models.append(('CNN', MLPClassifier(alpha=1, )))
-models.append(('AdaBoost', AdaBoostClassifier(n_estimators=100)))
-models.append(('RF', RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1)))
+models.append(('SVCLw', LinearSVC(C=0.025,penalty='l1', loss='squared_hinge', dual=False,random_state=seed,class_weight='balanced')))
+models.append(('SVCd', LinearSVC()))
+# models.append(('SVCLp2', LinearSVC(C=100,penalty='l2', loss='hinge',random_state=seed,class_weight='balanced')))
+# models.append(('SVCL', LinearSVC(C=0.025,random_state=seed,)))
+models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr',class_weight='balanced')))
+models.append(('KNN', KNeighborsClassifier(n_neighbors=5)))
+# models.append(('CART', DecisionTreeClassifier(max_depth=5)))
+# models.append(('NB', GaussianNB()))
+models.append(('xGB', XGBClassifier(n_estimators=100, random_state=seed,scale_pos_weight=99)))
+# models.append(('CNN', MLPClassifier(alpha=1, )))
+# models.append(('AdaBoost', AdaBoostClassifier(n_estimators=100)))
+# models.append(('RF', RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1)))
 
 
 # evaluate each model in turn
@@ -162,48 +173,43 @@ scoring = 'accuracy'
 
 for name, model in models:
     kfold = model_selection.KFold(n_splits=10,random_state=seed,shuffle=True)
-    cv_results = model_selection.cross_val_score(model, x, y, cv=kfold, scoring=scoring)
+    cv_results = model_selection.cross_val_score(model, x, y, cv=kfold, scoring=scoring,)
     results.append(cv_results)
     names.append(name)
-    msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+    accuracy = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
 
     model.fit(x_train, y_train)
     y_pred = model.predict(x_test)
     cm=confusion_matrix(y_test,y_pred)
     cr = classification_report(y_test, y_pred)
 
-    print(msg)
+    print(accuracy)
+    print('Error Rate',1-cv_results.mean())
     print(cm)
     print(cr)
-#
-# boxplot algorithm comparison
-fig = plt.figure()
-fig.suptitle('Algorithm Comparison')
-ax = fig.add_subplot(111)
-plt.boxplot(results)
-ax.set_xticklabels(names)
-plt.savefig('Algorithm Comparison with sampling before new segmentation')# boxplot algorithm comparison
+
+
+# fig = plt.figure()
+# fig.suptitle('Algorithm Comparison')
+# ax = fig.add_subplot(111)
+# plt.boxplot(results)
+# ax.set_xticklabels(names)
+# plt.savefig('Algorithm Comparison with sampling before new segmentation')# boxplot algorithm comparison
 # plt.show()
 
-
-
-# model = LinearSVC(kernel='linear', class_weight='balanced', C=10, random_state=0)
-# model = AdaBoostClassifier()
-# model = xGBClassifier()
-# model = LinearSVC(C=5,penalty='l1', loss='squared_hinge', dual=False,=4000)
-# # model = model_selection.GridSearchCV(svm, parameters, cv=10,scoring='accuracy')
+# model = LinearSVC(C=0.025,penalty='l1', loss='squared_hinge', dual=False,random_state=seed)
+# # model = AdaBoostClassifier()
+# # model = XGBClassifier()
+# # model = LinearSVC(C=5,penalty='l1', loss='squared_hinge', dual=False,=4000)
+# # # model = model_selection.GridSearchCV(svm, parameters, cv=10,scoring='accuracy')
 # model.fit(x_train, y_train)
-# # print('best parameters',model.best_params_)
-
+# # # print('best parameters',model.best_params_)
+#
 # y_pred = model.predict(x_test)
 # print("Training Accuracy :", model.score(x_train, y_train))
 # print("Testing Accuracy :", model.score(x_test, y_test))
-
-# classification report
 # cr = classification_report(y_test, y_pred,)
 # cm=confusion_matrix(y_test,y_pred)
-# accuracy = accuracy_score(y_test, y_pred)
-# print("Accuracy: %.2f%%" % (accuracy * 100.0))
-# print('Testing accurecy: ',accuracy)
 # print(cm)
 # print(cr)
+
